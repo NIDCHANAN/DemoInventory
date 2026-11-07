@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventory Control Center | Smart Warehouse</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  
+  
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-mark">
+            <i class="fa-solid fa-globe"></i>
+        </div>
+        <div>
+            <strong>GLOBALTECH</strong>
+            <span>MANUFACTURING</span>
+        </div>
+    </div>
+
+
+    <div class="title-block">
+        <h1>Inventory Control Center</h1>
+        <p>Smart Warehouse <b>•</b> Real-Time Visibility</p>
+    </div>
+
+    <div class="system-status">
+        <span class="pulse"></span>
+        <div>
+            <b>System Online</b>
+            <small>Last update <span id="lastUpdate">--:--:--</span></small>
+        </div>
+    </div>
+
+    <div class="date-time">
+        <span id="dateText">MON, JAN 01, 2026</span>
+        <strong id="clock">00:00:00</strong>
+    </div>
+
+    <div class="language">
+        <i class="fa-solid fa-globe"></i>
+        EN
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    
+    <!-- HOME BUTTON -->
+    <a href="stock-on-hand.html" class="home-button" title="Back to Dashboard">
+        <i class="fa-solid fa-house"></i>
+    </a>
+    
+
+</header>
+
+
+  <main class="dashboard container-fluid">
+    <section class="kpi-grid">
+      <article class="kpi-card"><div class="kpi-icon blue"><i class="fa-solid fa-boxes-stacked"></i></div><div><label>Total Materials</label><strong id="totalMaterials">4,860</strong><small class="trend up">▲ 2.3%</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon cyan"><i class="fa-solid fa-layer-group"></i></div><div><label>Total Stock</label><strong>482.5 <em>Tons</em></strong><small class="trend up">▲ 1.8%</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon orange"><i class="fa-solid fa-triangle-exclamation"></i></div><div><label>Low Stock</label><strong id="lowStock">12</strong><small class="trend down">▲ 2 items</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon red"><i class="fa-solid fa-xmark"></i></div><div><label>Out of Stock</label><strong id="outStock">3</strong><small class="trend neutral">— 0</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon sky"><i class="fa-solid fa-clipboard-check"></i></div><div><label>Pending Inspection</label><strong>28</strong><small class="trend up">▲ 4 items</small></div></article>
+      <article class="kpi-card accuracy"><div class="donut"><span>98.7<small>%</small></span></div><div><label>Stock Accuracy</label><strong>98.7<em>%</em></strong></div></article>
+    </section>
+
+    <section class="main-grid">
+      <article class="panel warehouse-panel">
+        <div class="panel-heading"><div><i class="fa-solid fa-cubes"></i><h2>Warehouse Overview</h2></div><span class="location"><i class="fa-solid fa-location-dot"></i> Main Warehouse</span></div>
+        <div class="warehouse-stage">
+          <div id="warehouse3d" aria-label="Interactive 3D warehouse model"></div>
+          <div class="mt-3">
+            <h6 class="fw-bold">
+              <i class="bi bi-box-seam"></i>
+              Inventory by Level
+            </h6>
+
+            <div id="modalLevels">
+              <!-- JavaScript จะเติมข้อมูลตรงนี้ -->
+            </div>
+          </div>
+          <div class="floor-badge"><i class="fa-solid fa-cube"></i> 3D LIVE MODEL <span>•</span> DRAG TO ROTATE</div>
+          <div class="zoom-controls"><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="resetView" aria-label="Reset view"><i class="fa-solid fa-rotate"></i></button></div>
+        </div>
+        <div class="rack-legend"><span><i class="legend-box healthy"></i> Healthy</span><span><i class="legend-box low"></i> Low Stock</span><span><i class="legend-box critical"></i> Critical</span><span class="hint">Select a rack in the 3D view to inspect location</span></div>
+      </article>
+
+      <div class="right-stack">
+        <article class="panel alerts-panel">
+          <div class="panel-heading dark"><div><i class="fa-solid fa-bell"></i><h2>Critical Alerts</h2></div><a href="#activity">View All <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="alert-list">
+            <div class="alert-row"><span class="tag critical">CRITICAL</span><div><b>RM-001 Steel Coil</b><small>Out of Stock</small></div><time>Now</time></div>
+            <div class="alert-row"><span class="tag warning">WARNING</span><div><b>RM-245 Aluminium Sheet</b><small>Only 5 units left (Min. 50)</small></div><time>5 min ago</time></div>
+            <div class="alert-row"><span class="tag info">INFO</span><div><b>PO-2026-1687</b><small>Goods Received Successfully</small></div><time>8 min ago</time></div>
+          </div>
+        </article>
+        <article class="panel health-panel">
+          <div class="panel-heading dark"><div><i class="fa-solid fa-heart-pulse"></i><h2>Inventory Health</h2></div><a href="#process">View Details <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="health-content"><div class="health-donut"><div><b>96.2%</b><small>Healthy</small></div></div><div class="health-legend"><p><i class="dot healthy"></i>Healthy <b>96.2%</b></p><p><i class="dot low"></i>Low Stock <b>2.1%</b></p><p><i class="dot critical"></i>Critical <b>1.7%</b></p></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="bottom-grid" id="process">
+      <article class="panel process-panel">
+        <div class="panel-heading dark"><div><i class="fa-solid fa-gears"></i><h2>Material Process Flow</h2></div><span class="live-caption">Real-Time Tracking</span></div>
+        <div class="process-flow">
+          <div class="process-step"><div class="process-icon"><i class="fa-solid fa-truck-fast"></i></div><b>Receiving</b><small>120 items</small></div><i class="flow-arrow fa-solid fa-arrow-right"></i>
+          <div class="process-step"><div class="process-icon"><i class="fa-solid fa-magnifying-glass"></i></div><b>Inspection</b><small>98 items</small></div><i class="flow-arrow fa-solid fa-arrow-right"></i>
+          <div class="process-step"><div class="process-icon"><i class="fa-solid fa-warehouse"></i></div><b>Storage</b><small>4,732 items</small></div><i class="flow-arrow fa-solid fa-arrow-right"></i>
+          <div class="process-step"><div class="process-icon"><i class="fa-solid fa-box-open"></i></div><b>Issuing</b><small>320 items</small></div>
+        </div>
+      </article>
+      <article class="panel movement-panel">
+        <div class="panel-heading dark"><div><i class="fa-solid fa-chart-column"></i><h2>Material Movement <span>(Today)</span></h2></div><a href="#activity">View Report <i class="fa-solid fa-arrow-right"></i></a></div>
+        <div class="movement-grid">
+          <div><i class="fa-solid fa-arrow-down movement-green"></i><small>Received</small><b>12.5 <em>T</em></b><span>▲ 12%</span></div>
+          <div><i class="fa-solid fa-arrow-right movement-blue"></i><small>Transferred</small><b>8.2 <em>T</em></b><span>▲ 8%</span></div>
+          <div><i class="fa-solid fa-arrow-up movement-purple"></i><small>Issued</small><b>9.1 <em>T</em></b><span>▲ 10%</span></div>
+          <div><i class="fa-solid fa-rotate-left movement-gray"></i><small>Returned</small><b>0.4 <em>T</em></b><span>▲ 2%</span></div>
+        </div>
+      </article>
+      <article class="panel activity-panel" id="activity">
+        <div class="panel-heading dark"><div><i class="fa-regular fa-clock"></i><h2>Recent Activities</h2></div><span class="live-feed">LIVE FEED</span></div>
+        <div class="activity-list">
+          <div><i class="activity-dot green"></i><time>10:41</time><b>RM-245</b><span>Issued</span><strong>250 kg</strong></div>
+          <div><i class="activity-dot red"></i><time>10:40</time><b>RM-001</b><span class="danger-text">Stock Alert</span><strong>0 left</strong></div>
+          <div><i class="activity-dot green"></i><time>10:38</time><b>RM-310</b><span>Received</span><strong>1,000 kg</strong></div>
+          <div><i class="activity-dot blue"></i><time>10:35</time><b>RM-120</b><span>Transferred</span><strong>B-01</strong></div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer class="footer-bar"><div><span class="footer-slash"></span><b>Smarter Inventory. Stronger Operations.</b></div><span><i class="fa-solid fa-chart-simple"></i> GlobalTech Manufacturing <b>|</b> Industry 4.0 Ready</span></footer>
+</div>
+
+<div class="modal fade" id="rackModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content rack-modal">
+    <div class="modal-header"><div><small>LOCATION INTELLIGENCE</small><h5 id="modalRackTitle">Rack A-01</h5></div><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><div class="modal-stat"><span>Stock status</span><b id="modalStatus">Healthy</b></div><div class="modal-stat"><span>Material code</span><b id="modalMaterial">RM-100</b></div><div class="modal-stat"><span>Available quantity</span><b id="modalQty">1,250 kg</b></div><div class="modal-stat"><span>Capacity utilization</span><b id="modalCapacity">78%</b></div><div class="progress mt-3"><div id="capacityBar" class="progress-bar" style="width:78%"></div></div><p class="modal-note">Demo data • Connect your SQL / ERP source for live inventory values.</p></div>
+  </div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
